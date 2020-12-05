@@ -4,11 +4,14 @@ const menu = () => {
 
   while (!exit) {
 
+    let message = 'DENTISTIMO REQUEST GENERATOR \n'
+    message += 'Press 0 to exit!'
+    console.log(message)
+
     let input = prompt('');
-    console.log(input)
     switch (input) {
 
-      case '1':
+      case '0':
         exit = true;
         break;
         
