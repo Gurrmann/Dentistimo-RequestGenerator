@@ -21,23 +21,25 @@ let generateRequest = (random, requestid) => {
         time: time, 
 
     }
-  // client.publish('BookingRequest', JSON.stringify(request))
     return request
 }
 
-let submitRequest = (random, amount) => {
+let submitRequest = (random, amount, time) => {
+
+        time = time * 1000 //converts seconds in to milliseconds
+        let interval = time / amount
 
         let i = 0
-        let interval = setInterval(() => {
+        let requests = setInterval(() => {
             if(i > amount - 1) {
-              clearInterval(interval)
+              clearInterval(requests)
          }
          console.log(generateRequest(random,i))
          console.log(i)
           i++
-         },1000);
+         },interval);
         
 }
-submitRequest(false,10)
+submitRequest(true,100,10)
 
 
