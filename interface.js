@@ -27,11 +27,36 @@ const menu = () => {
 }
 
 var createRequests = () => {
-  console.log('poop')
+
+  console.log('How many requests do you want to send?')
+  let amount = prompt('')
+  console.log('In what amount of time? (seconds)')
+  let time = prompt('')
+  console.log('Everything to the same dentist? (y/n)')
+  let dentistry = prompt('')
+  let randomDentistry
+  if (dentistry === 'y' || dentistry === 'Y') {
+    randomDentistry = false
+  }
+  else {
+     randomDentistry = true
+  }
+  console.log('Increment the date for the requests? (otherwise all requests will use same date (y/n)')
+  let date = prompt('')
+  let incrementDate
+  if (date === 'y' || date === 'Y') {
+    incrementDate = true
+  } 
+  else {
+    incrementDate = false
+  }
+
+  requestGenerator.submitRequest(randomDentistry,incrementDate,amount,time)
+   
 }
 
 var selectPresets = () => {
-  console.log('tja')
+  
 }
 
 menu()
