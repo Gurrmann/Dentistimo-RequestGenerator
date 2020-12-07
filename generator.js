@@ -15,8 +15,11 @@ let generateRequest = (requestData, requestid) => {
     let format = []
     let minuteIncrementer = 30
     let dateString
+
     if (requestData.incrementDate) {
+
         for (i = 0; i < requestid; i++) {
+
             time = new Date(testDate.getTime() + 1000 * 60 * minuteIncrementer)
             minuteIncrementer += 30
             dateString = time.toISOString()
@@ -24,8 +27,13 @@ let generateRequest = (requestData, requestid) => {
             format[1] = dateString.slice(11,16)
             dateString = format[0] + ' ' + format[1]
         }
-    } else {
+
+    }
+     
+    else {
+
         dateString = '2021-12-1 14:30'
+
     }
     
     //arbitrary number to not conflict with real requests,
@@ -53,11 +61,13 @@ let submitRequest = (requestData) => {
             if(i > requestData.amount - 1) {
               clearInterval(requests)
          }
-        let request = generateRequest(requestData, i)
-        client.publish('bookingRequest', JSON.stringify(request))
-        console.log(request)
-          i++
-         },interval);
+
+            let request = generateRequest(requestData, i)
+            client.publish('bookingRequest', JSON.stringify(request))
+            console.log(request)
+            i++
+        
+        },interval);
         
 }
 

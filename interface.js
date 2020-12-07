@@ -21,9 +21,11 @@ const menu = () => {
       case '1':
         createRequests()
         break;
+
       case '2':
         selectPresets()
         break;
+        
       default:
         console.log('Select a valid option \n')
         menu()
@@ -38,18 +40,23 @@ var createRequests = () => {
 
   console.log('How many requests do you want to send?')
   requestData.amount = prompt('')
+ 
   console.log('In what amount of time? (seconds)')
   requestData.time = prompt('')
+ 
   console.log('Everything to the same dentist? (y/n)')
   let dentistry = prompt('')
+  
   if (dentistry === 'y' || dentistry === 'Y') {
     requestData.randomDentistry = false
   }
   else {
      requestData.randomDentistry = true
   }
+ 
   console.log('Increment the date for the requests? (otherwise all requests will use same date (y/n)')
   let date = prompt('')
+ 
   if (date === 'y' || date === 'Y') {
     requestData.incrementDate = true
   } 
@@ -76,20 +83,24 @@ var selectPresets = () => {
       case '1':
         requestGenerator.submitRequest(requestData)
         break;
+    
       case '2':
         requestData.randomDentistry = true
         requestGenerator.submitRequest(requestData)
         break;
-      case '3':
+     
+     case '3':
         requestData.incrementDate = true
         requestGenerator.submitRequest(requestData)
         break;
-      case '4':
+     
+     case '4':
         requestData.incrementDate = true
         requestData.randomDentistry = true
         requestGenerator.submitRequest(requestData)
         break;
-      default:
+     
+     default:
         console.log('Please select a valid option\n')
         selectPresets()
   }
