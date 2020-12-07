@@ -1,6 +1,13 @@
-const { DEFAULT_ECDH_CURVE } = require('tls');
 const requestGenerator = require('./generator')
 const prompt = require('prompt-sync')({sigint: true});
+
+let requestData = {
+  amount: 100,
+  time: 10,
+  randomDentistry: false,
+  incrementDate: false,
+}
+
 const menu = () => {
 
     let message = 'DENTISTIMO REQUEST GENERATOR \n'
@@ -14,9 +21,11 @@ const menu = () => {
       case '1':
         createRequests()
         break;
+
       case '2':
         selectPresets()
         break;
+        
       default:
         console.log('Select a valid option \n')
         menu()
@@ -30,29 +39,32 @@ const menu = () => {
 var createRequests = () => {
 
   console.log('How many requests do you want to send?')
-  let amount = prompt('')
+  requestData.amount = prompt('')
+ 
   console.log('In what amount of time? (seconds)')
-  let time = prompt('')
+  requestData.time = prompt('')
+ 
   console.log('Everything to the same dentist? (y/n)')
   let dentistry = prompt('')
-  let randomDentistry
+  
   if (dentistry === 'y' || dentistry === 'Y') {
-    randomDentistry = false
+    requestData.randomDentistry = false
   }
   else {
-     randomDentistry = true
+     requestData.randomDentistry = true
   }
+ 
   console.log('Increment the date for the requests? (otherwise all requests will use same date (y/n)')
   let date = prompt('')
-  let incrementDate
+ 
   if (date === 'y' || date === 'Y') {
-    incrementDate = true
+    requestData.incrementDate = true
   } 
   else {
-    incrementDate = false
+    requestData.incrementDate = false
   }
 
-  requestGenerator.submitRequest(randomDentistry,incrementDate,amount,time)
+  requestGenerator.submitRequest(requestData)
    
 }
 
@@ -69,18 +81,26 @@ var selectPresets = () => {
   switch (input) {
 
       case '1':
-        requestGenerator.submitRequest(false,false,100,10)
+        requestGenerator.submitRequest(requestData)
         break;
+    
       case '2':
-        requestGenerator.submitRequest(true,false,100,10)
+        requestData.randomDentistry = true
+        requestGenerator.submitRequest(requestData)
         break;
-      case '3':
-        requestGenerator.submitRequest(false,true,100,10)
+     
+     case '3':
+        requestData.incrementDate = true
+        requestGenerator.submitRequest(requestData)
         break;
-      case '4':
-        requestGenerator.submitRequest(true,true,100,10)
+     
+     case '4':
+        requestData.incrementDate = true
+        requestData.randomDentistry = true
+        requestGenerator.submitRequest(requestData)
         break;
-      default:
+     
+     default:
         console.log('Please select a valid option\n')
         selectPresets()
   }
