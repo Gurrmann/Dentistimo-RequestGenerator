@@ -7,7 +7,7 @@ let generateRequest = (requestData, requestid) => {
     var issuance = new Date()
     issuance = issuance.getTime();
     let userId = Math.floor(Math.random() * 1000000000)
-    let dentistid = requestData.randomDenti2stry ? Math.floor(Math.random() * 4) : 4
+    let dentistid = requestData.randomDentistry ? Math.floor(Math.random() * 4) : 4
     
     // Increments a set date with 30 minutes for each iteration, representing a timeslot
     var testDate = new Date(2022,0,1,0,0)
@@ -16,7 +16,7 @@ let generateRequest = (requestData, requestid) => {
     let minuteIncrementer = 30
     let dateString
     if (requestData.incrementDate) {
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < requestid; i++) {
             time = new Date(testDate.getTime() + 1000 * 60 * minuteIncrementer)
             minuteIncrementer += 30
             dateString = time.toISOString()
