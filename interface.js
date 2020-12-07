@@ -1,6 +1,13 @@
-const { DEFAULT_ECDH_CURVE } = require('tls');
 const requestGenerator = require('./generator')
 const prompt = require('prompt-sync')({sigint: true});
+
+let requestData = {
+  amount: 100,
+  time: 10,
+  randomDentistry: false,
+  incrementDate: false,
+}
+
 const menu = () => {
 
     let message = 'DENTISTIMO REQUEST GENERATOR \n'
@@ -30,29 +37,27 @@ const menu = () => {
 var createRequests = () => {
 
   console.log('How many requests do you want to send?')
-  let amount = prompt('')
+  requestData.amount = prompt('')
   console.log('In what amount of time? (seconds)')
-  let time = prompt('')
+  requestData.time = prompt('')
   console.log('Everything to the same dentist? (y/n)')
   let dentistry = prompt('')
-  let randomDentistry
   if (dentistry === 'y' || dentistry === 'Y') {
-    randomDentistry = false
+    requestData.randomDentistry = false
   }
   else {
-     randomDentistry = true
+     requestData.randomDentistry = true
   }
   console.log('Increment the date for the requests? (otherwise all requests will use same date (y/n)')
   let date = prompt('')
-  let incrementDate
   if (date === 'y' || date === 'Y') {
-    incrementDate = true
+    requestData.incrementDate = true
   } 
   else {
-    incrementDate = false
+    requestData.incrementDate = false
   }
 
-  requestGenerator.submitRequest(randomDentistry,incrementDate,amount,time)
+  requestGenerator.submitRequest(requestData)
    
 }
 
