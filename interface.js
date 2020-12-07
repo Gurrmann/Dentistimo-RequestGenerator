@@ -74,16 +74,20 @@ var selectPresets = () => {
   switch (input) {
 
       case '1':
-        requestGenerator.submitRequest(false,false,100,10)
+        requestGenerator.submitRequest(requestData)
         break;
       case '2':
-        requestGenerator.submitRequest(true,false,100,10)
+        requestData.randomDentistry = true
+        requestGenerator.submitRequest(requestData)
         break;
       case '3':
-        requestGenerator.submitRequest(false,true,100,10)
+        requestData.incrementDate = true
+        requestGenerator.submitRequest(requestData)
         break;
       case '4':
-        requestGenerator.submitRequest(true,true,100,10)
+        requestData.incrementDate = true
+        requestData.randomDentistry = true
+        requestGenerator.submitRequest(requestData)
         break;
       default:
         console.log('Please select a valid option\n')
