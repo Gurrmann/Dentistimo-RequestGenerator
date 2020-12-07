@@ -2,12 +2,12 @@ var mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://test.mosquitto.org')
 const { setInterval } = require("timers");
 
-let generateRequest = (randomDenistry, randomDate, amount) => {
+let generateRequest = (requestData, requestid) => {
 
     var issuance = new Date()
     issuance = issuance.getTime();
     let userId = Math.floor(Math.random() * 1000000000)
-    let dentistid = randomDenistry ? Math.floor(Math.random() * 4) : 4
+    let dentistid = requestData.randomDenti2stry ? Math.floor(Math.random() * 4) : 4
     
     // Increments a set date with 30 minutes for each iteration, representing a timeslot
     var testDate = new Date(2022,0,1,0,0)
@@ -15,8 +15,8 @@ let generateRequest = (randomDenistry, randomDate, amount) => {
     let format = []
     let minuteIncrementer = 30
     let dateString
-    if (randomDate) {
-        for (i = 0; i < amount; i++) {
+    if (requestData.incrementDate) {
+        for (i = 0; i < 10; i++) {
             time = new Date(testDate.getTime() + 1000 * 60 * minuteIncrementer)
             minuteIncrementer += 30
             dateString = time.toISOString()
@@ -29,11 +29,11 @@ let generateRequest = (randomDenistry, randomDate, amount) => {
     }
     
     //arbitrary number to not conflict with real requests,
-    amount += 1000000;
+    requestid += 1000000;
     let request = {
 
         userid: userId,
-        requestid: amount,
+        requestid: requestid,
         dentistid: dentistid,
         issuance: issuance,
         time: dateString, 
@@ -43,17 +43,17 @@ let generateRequest = (randomDenistry, randomDate, amount) => {
     return request
 }
 
-let submitRequest = (randomDenistry, randomDate, amount, time) => {
+let submitRequest = (requestData) => {
 
-        time = time * 1000 //converts seconds in to milliseconds
-        let interval = time / amount
+        requestData.time = requestData.time * 1000 //converts seconds in to milliseconds
+        let interval = requestData.time / requestData.amount
 
         let i = 1
         let requests = setInterval(() => {
-            if(i > amount - 1) {
+            if(i > requestData.amount - 1) {
               clearInterval(requests)
          }
-        let request = generateRequest(randomDenistry, randomDate, i)
+        let request = generateRequest(requestData, i)
         client.publish('bookingRequest', JSON.stringify(request))
         console.log(request)
           i++
