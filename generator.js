@@ -9,11 +9,11 @@ let generateRequest = (requestData, requestid) => {
     let userId = Math.floor(Math.random() * 1000000000)
     let dentistid = requestData.randomDentistry ? Math.floor(Math.random() * (4-1) + 1) : 4
     let dateString
-    // Increments a set date with 30 minutes for each iteration, representing a timeslot
     
-    if (requestData.incrementDate) {
-        
-        let minuteIncrementer = 30 * requestid
+        //Randomizes dates with 30 minutes between eachother, representing a timeslot
+        if (requestData.randomDate) {
+
+        let minuteIncrementer = 30 *  Math.floor(Math.random() * (requestData.amountOfDates - 1) + 1)
         let testDate = new Date(2022,0,1,0,0)
         let time = new Date(testDate.getTime() + 1000 * 60 * minuteIncrementer)
         
