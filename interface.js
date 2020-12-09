@@ -5,7 +5,8 @@ let requestData = {
   amount: 100,
   time: 10,
   randomDentistry: false,
-  incrementDate: false,
+  randomDate: false,
+  amountOfDates: 1000
 }
 
 const menu = () => {
@@ -54,14 +55,16 @@ var createRequests = () => {
      requestData.randomDentistry = true
   }
  
-  console.log('Increment the date for the requests? (otherwise all requests will use same date (y/n)')
+  console.log('Randomize the date for the requests? (otherwise all requests will use same date (y/n)')
   let date = prompt('')
  
   if (date === 'y' || date === 'Y') {
-    requestData.incrementDate = true
+    requestData.randomDate = true
+    console.log('How many possible dates should it randomize between?')
+    requestData.amountOfDates = prompt('')
   } 
   else {
-    requestData.incrementDate = false
+    requestData.randomDate = false
   }
 
   requestGenerator.submitRequest(requestData)
@@ -72,8 +75,8 @@ var selectPresets = () => {
 
   let message = 'Press 1 to send 100 requests in 10 seconds with indentical data\n'
   message += 'Press 2 to send 100 requests in 10 seconds to different dentists with identical date\n'
-  message += 'Press 3 to send 100 requests in 10 seconds to the same dentist with unique dates\n'
-  message += 'Press 4 to send 100 requests in 10 seconds to different dentists with unique dates'
+  message += 'Press 3 to send 100 requests in 10 seconds to the same dentist with randomized dates\n'
+  message += 'Press 4 to send 100 requests in 10 seconds to different dentists with randomized dates'
 
   console.log(message)
   let input = prompt('')
@@ -90,12 +93,12 @@ var selectPresets = () => {
         break;
      
      case '3':
-        requestData.incrementDate = true
+        requestData.randomDate = true
         requestGenerator.submitRequest(requestData)
         break;
      
      case '4':
-        requestData.incrementDate = true
+        requestData.randomDate = true
         requestData.randomDentistry = true
         requestGenerator.submitRequest(requestData)
         break;
